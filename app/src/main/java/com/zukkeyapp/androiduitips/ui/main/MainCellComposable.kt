@@ -25,13 +25,11 @@ fun MainCellComposable(
         Text(
             text = number.toString(),
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.secondary,
             modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 16.dp)
         )
         Text(
             text = title,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.primary,
             modifier = Modifier.padding(16.dp)
         )
     }
