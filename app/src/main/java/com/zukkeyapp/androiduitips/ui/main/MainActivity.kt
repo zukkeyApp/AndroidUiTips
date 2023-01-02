@@ -13,12 +13,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.zukkeyapp.androiduitips.ui.ScreenType
 import com.zukkeyapp.androiduitips.ui.learn_timer.LearnTimerScreen
+import com.zukkeyapp.androiduitips.ui.learn_timer.LearnTimerViewModel
 import com.zukkeyapp.androiduitips.ui.theme.AndroidUiTipsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<MainViewModel>()
+    private val learnTimerViewModel by viewModels<LearnTimerViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
                             MainScreen(viewModel, navController)
                         }
                         composable(ScreenType.LEAN_TIMER.routeName) {
-                            LearnTimerScreen()
+                            LearnTimerScreen(learnTimerViewModel)
                         }
                     }
                 }
