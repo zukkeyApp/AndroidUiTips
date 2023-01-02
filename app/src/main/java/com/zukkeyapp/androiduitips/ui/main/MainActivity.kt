@@ -1,5 +1,6 @@
 package com.zukkeyapp.androiduitips.ui.main
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,6 +34,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navController = rememberNavController()
+                    navController.addOnDestinationChangedListener { controller, _, _ ->
+                        requestedOrientation = if (controller.currentDestination?.route == ScreenType.LEAN_TIMER.routeName) {
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                        } else {
+                            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                        }
+                    }
                     NavHost(navController = navController, startDestination = ScreenType.MAIN.routeName) {
                         composable(ScreenType.MAIN.routeName) {
                             MainScreen(viewModel, navController)

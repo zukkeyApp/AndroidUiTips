@@ -17,29 +17,43 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
+@SuppressLint("SimpleDateFormat")
 @HiltViewModel
 class LearnTimerViewModel @Inject constructor(): ViewModel() {
     var uiState by mutableStateOf(LearnTimerUiState())
-    private var job: Job? = null
+    private var currentTimerJob: Job? = null
+    private var countTimerJob: Job? = null
     init {
         makeUiData()
     }
-    @SuppressLint("SimpleDateFormat")
     private fun makeUiData() {
-        job = flow {
-            var counter: Long = 0
-            while (true) {
-                delay(1.seconds.inWholeMilliseconds)
-                emit(counter++)
-            }
-        }.onEach {
+        currentTimerJob = interval().onEach {
             uiState = uiState.copy(currentTime = SimpleDateFormat("HH:mm:ss").format(Date()))
         }.launchIn(viewModelScope).apply { start() }
     }
 
+    fun startTime() {
+        countTimerJob = interval().onEach {
+            uiState = uiState.copy(currentTime = SimpleDateFormat("HH:mm:ss").format(Date()))
+        }.launchIn(viewModelScope).apply { start() }
+    }
+
+    fun stopTimer() {
+        countTimerJob?.cancel()
+        countTimerJob = null
+    }
+
+    private fun interval() = flow {
+        var counter: Long = 0
+        while (true) {
+            delay(1.seconds.inWholeMilliseconds)
+            emit(counter++)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
-        job?.cancel()
-        job = null
+        currentTimerJob?.cancel()
+        currentTimerJob = null
     }
 }
