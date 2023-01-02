@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.compose.material:material:1.3.1")
     implementation("com.google.dagger:dagger:2.44.2")
     implementation("com.google.dagger:hilt-android:2.44.2")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.room:room-runtime:2.4.3")
     kapt("com.google.dagger:dagger-compiler:2.44.2")
     kapt("com.google.dagger:hilt-compiler:2.44.2")

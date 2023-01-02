@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(): ViewModel() {
 
     private fun makeUiData() {
         uiState = uiState.copy(cellDataList = listOf(
-            MainUiState.MainCellData(id = 0, name = "Sample001"),
+            MainUiState.MainCellData(id = 0, name = "学習用タイマー"),
             MainUiState.MainCellData(id = 1, name = "Sample002"),
             MainUiState.MainCellData(id = 2, name = "Sample003")
         ))

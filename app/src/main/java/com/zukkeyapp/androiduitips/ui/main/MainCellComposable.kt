@@ -1,5 +1,6 @@
 package com.zukkeyapp.androiduitips.ui.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +17,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MainCellComposable(
     number: Int,
-    title: String
+    title: String,
+    onCellClick: (number: Int) -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable { onCellClick.invoke(number) },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -41,5 +43,7 @@ fun MainCellComposablePreview() {
     MainCellComposable(
         number = 0,
         title = "Sample"
-    )
+    ) {
+        // Do Nothing
+    }
 }
